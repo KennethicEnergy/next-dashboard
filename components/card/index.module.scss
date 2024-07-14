@@ -1,3 +1,21 @@
 .card {
-  color: red;
+  height: 200px;
+  width: 300px;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  margin: 20px;
+
+  .cardHeader {
+    width: 280px;
+    height: 40px;
+    background: #FFC107;
+    transform: skewX(-20deg);
+    position: relative;
+    top: -16px;
+    left: 11px;
+    border-radius: 2px;
+
+    > * { transform: skewX(20deg); }
+  }
+
 }

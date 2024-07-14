@@ -1,8 +1,9 @@
 'use client'
 import styles from "./page.module.scss";
-import { ProfileButton } from "nextfirejs/client/components";
 import { getUserCS } from "nextfirejs/client/auth";
 import { useEffect } from "react";
+import Sidebar from "@/components/sidebar/sidebar";
+import Header from "@/components/header/header";
 
 export default function Home() {
   const { currentUser } = getUserCS();
@@ -13,7 +14,11 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <ProfileButton/>
+      <Sidebar />
+      <div className={styles.contents}>
+        <Header />
+
+      </div>
     </main>
   );
 }
