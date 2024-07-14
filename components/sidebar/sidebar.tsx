@@ -1,12 +1,17 @@
 import React from 'react'
 import styles from './sidebar.module.scss'
 import { motion } from 'framer-motion';
+import { BiAccessibility } from "react-icons/bi";
 
 const Sidebar = () => {
+
   return (
     <div className={styles.container}>
       <div className={styles.contents}>
-        <div className={styles.brand}>Dashboard</div>
+        <div className={styles.brand}>
+          <BiAccessibility />
+          Dash
+        </div>
         <div className={styles.contents}>
           <div className={styles.menu}>
             <motion.span whileTap={{ scale: 0.9 }} className={styles.menuItem}>Dashboard</motion.span>
