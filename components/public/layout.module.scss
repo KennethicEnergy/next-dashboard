@@ -1,0 +1,11 @@
+.main {
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

@@ -2,8 +2,20 @@ import React from 'react'
 import styles from './sidebar.module.scss'
 import { motion } from 'framer-motion';
 import { BiAccessibility } from "react-icons/bi";
+import { Router } from 'next/router';
+import { useRouter } from 'next/navigation'
 
 const Sidebar = () => {
+  const router = useRouter();
+
+  const sidebarItems = [
+    { title: 'Dashboard', path: 'dashboard'},
+    { title: 'Property', path: 'property'},
+    { title: 'Tenants', path: 'tenants'},
+    { title: 'Add Property', path: 'add-property'},
+    { title: 'Maintainer', path: 'maintainer'},
+    { title: 'Contacts', path: 'contacts'},
+  ]
 
   return (
     <div className={styles.container}>
@@ -14,12 +26,9 @@ const Sidebar = () => {
         </div>
         <div className={styles.contents}>
           <div className={styles.menu}>
-            <motion.span whileTap={{ scale: 0.9 }} className={styles.menuItem}>Dashboard</motion.span>
-            <motion.span whileTap={{ scale: 0.9 }} className={styles.menuItem}>Property</motion.span>
-            <motion.span whileTap={{ scale: 0.9 }} className={styles.menuItem}>Tenants</motion.span>
-            <motion.span whileTap={{ scale: 0.9 }} className={styles.menuItem}>Add Property</motion.span>
-            <motion.span whileTap={{ scale: 0.9 }} className={styles.menuItem}>Maintainer</motion.span>
-            <motion.span whileTap={{ scale: 0.9 }} className={styles.menuItem}>Contacts</motion.span>
+            { sidebarItems.map((item, index) => (
+              <motion.span key={index} whileTap={{ scale: 0.9 }} className={styles.menuItem} onClick={() => router.push(item.path)}>{item.title}</motion.span>
+            ))}
           </div>
         </div>
       </div>

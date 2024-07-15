@@ -1,12 +1,12 @@
 import { debug } from "console";
-import NextFireJSMiddleware from "nextfirejs/middleware/nextfirejs-middleware";
+import FirebaseNextJSMiddleware from "firebase-nextjs/middleware/firebase-nextjs-middleware";
 
-const nextFireJSMiddlewareOptions = {
-	allowRule: "^/_next/.*",
-};
+const options = {
+  allowRule: "^\/_next\/|\/__\/auth\/.*" // Allow paths under /_next/ and /__/auth/ (for firebase auth) publically.
+}
 
 const middleware = (req) => {
-	return NextFireJSMiddleware({ req, nextFireJSMiddlewareOptions });
+	return FirebaseNextJSMiddleware({ req, options });
 }
 
 export default middleware;

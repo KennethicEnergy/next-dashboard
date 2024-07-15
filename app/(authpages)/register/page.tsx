@@ -1,13 +1,11 @@
 "use client";
-import { getUserCS } from "nextfirejs/client/auth";
-import {
-	GoogleSignInButton,
-	EmailSignUpButton,
-} from "nextfirejs/client/components";
+import { getUserCS } from "firebase-nextjs/client/auth"
+import { GoogleSignInButton, EmailSignUpButton } from "firebase-nextjs/client/components";
 import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import GoogleLogo from "@/components/google-logo";
 import Spinner from "@/components/spinner";
+import { BiAccessibility } from "react-icons/bi";
 
 const RegisterPage = () => {
 	const { currentUser } = getUserCS();
@@ -23,12 +21,15 @@ const RegisterPage = () => {
 	}
 
 	return (
-    <div className="ppace-y-6 h-screen w-screen bg-white text-white flex flex-col justify-center items-center transition-all p-2">
+    <div className="ppace-y-6 h-screen w-screen bg-white text-[#45A9EA] flex flex-col justify-center items-center transition-all p-2">
 			<div className="max-w-md flex flex-col shadow-lg border rounded-xl w-full bg-gray-100/40">
 				<div className="flex flex-col border-b rounded-xl w-full  p-4 md:p-8 lg:p-10 py-10 items-center bg-white">
 					{!currentUser ? (
 						<>
-							<h1 className="text-lg font-semibold">Sign in to Your App</h1>
+							<h1 className="text-xl font-bold italic text-[#45A9EA] flex items-center">
+                <BiAccessibility />
+                Dash
+              </h1>
 							<h2 className="text-sm text-gray-500 mb-8">
 								Sign up
 							</h2>

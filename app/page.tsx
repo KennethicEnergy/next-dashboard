@@ -1,23 +1,11 @@
-'use client'
-import styles from "../public/page.module.scss";
-import { getUserCS } from "nextfirejs/client/auth";
-import { useEffect } from "react";
-import Sidebar from "@/components/sidebar/sidebar";
-import Header from "@/components/header/header";
-import Layout from "@/components/layout/layout";
+import MainLayout from "@/components/layout/layout";
 
-export default function Home() {
-  const { currentUser } = getUserCS();
-
-  useEffect(() => {
-  }, [])
-
+const Home = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <main className={styles.main}>
-      <Sidebar />
-      <div className={styles.contents}>
-        <Header />
-      </div>
-    </main>
+    <MainLayout>
+      {children}
+    </MainLayout>
   );
 }
+
+export default Home;

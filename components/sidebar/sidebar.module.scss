@@ -1,5 +1,5 @@
 .container {
-  background: #fff;
+  background: #45A9EA;
   min-width: 15rem;
   width: 20%;
   height: 100%;
@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: width 0.5s ease-in-out;
 
   .contents {
     .brand {
@@ -18,7 +19,7 @@
       align-items: center;
       font-weight: 700;
       font-style: italic;
-      color: #45A9EA;
+      color: #ffffff;
       font-size: 2rem;
     }
 
@@ -29,11 +30,11 @@
         flex-direction: column;
 
         .menuItem {
-          background: #45A9EA;
-          margin: 2%;
+          background: #ffffff;
+          margin: 3%;
           padding: 2%;
           border-radius: 3%;
-          color: #fff;
+          color: #45A9EA;
           display: flex;
           justify-content: center;
           cursor: pointer;
@@ -43,7 +44,14 @@
   }
 
   .footer {
+    color: #ffffff;
     display: flex;
     justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    display: none;
   }
 }
