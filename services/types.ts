@@ -6,3 +6,8 @@ export type State = {
 };
 
 export type Action = { type: 'INCREASE' } | { type: 'DECREASE' };
+
+export type TSidebarItem = {
+  title: string,
+  path: string
+}
