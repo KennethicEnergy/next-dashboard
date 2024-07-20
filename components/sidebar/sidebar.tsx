@@ -32,7 +32,7 @@ const Sidebar = () => {
     if (currentUser.userLoggedIn) {
       router.push('/dashboard');
     }
-  }, [])
+  }, []);
 
 	return (
 		<div className={styles.container}>
