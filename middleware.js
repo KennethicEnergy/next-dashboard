@@ -1,4 +1,3 @@
-import { debug } from "console";
 import FirebaseNextJSMiddleware from "firebase-nextjs/middleware/firebase-nextjs-middleware";
 
 const options = {

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./sidebar.module.scss";
 import { motion } from "framer-motion";
 import { BiAccessibility } from "react-icons/bi";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import { TSidebarItem } from "@/services/types";
+import { getUserCS } from "firebase-nextjs/client/auth";
 
 const Sidebar = () => {
+  const currentUser = getUserCS();
 	const router = useRouter();
 	const [selected, setSelected] = useState("dashboard");
 	const sidebarItems: TSidebarItem[] = [
@@ -25,7 +26,13 @@ const Sidebar = () => {
 
   useEffect(() => {
     console.log(selected)
-  },[selected])
+  },[selected]);
+
+  useEffect(() => {
+    if (currentUser.userLoggedIn) {
+      router.push('/dashboard');
+    }
+  }, [])
 
 	return (
 		<div className={styles.container}>
