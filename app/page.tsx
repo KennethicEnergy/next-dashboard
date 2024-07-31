@@ -1,17 +1,8 @@
-"use client"
-import { getUserCS } from "firebase-nextjs/client/auth";
-import { useEffect } from "react";
+"use client";
 import Dashboard from "./(pages)/dashboard/page";
 
-const Home = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  const currentUser = getUserCS();
-
-  useEffect(() => {
-  }, [])
-
-  return (
-    <Dashboard/>
-  );
-}
+const Home = () => {
+	return <Dashboard />;
+};
 
 export default Home;

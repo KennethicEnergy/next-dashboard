@@ -2,7 +2,7 @@
 import { getUserCS } from "firebase-nextjs/client/auth"
 import { GoogleSignInButton, EmailSignInButton } from "firebase-nextjs/client/components";
 import Link from "next/link";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import GoogleLogo from "@/components/google-logo";
 import Spinner from "@/components/spinner";
 import { BiAccessibility } from "react-icons/bi";

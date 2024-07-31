@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 const BreadCrumbs = () => {
   const router = useRouter();
-  console.log(router);
+
   return (
     <div className={styles.container}>BREADCRUMBS</div>
   )
