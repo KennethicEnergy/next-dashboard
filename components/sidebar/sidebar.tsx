@@ -3,9 +3,11 @@ import styles from "./sidebar.module.scss";
 import { motion } from "framer-motion";
 import { BiAccessibility } from "react-icons/bi";
 import { TSidebarItem } from "@/services/types";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
-	const [selected, setSelected] = useState("dashboard");
+	const [selectedPath, setSelectedPath] = useState("dashboard");
+  const router = useRouter();
 	const sidebarItems: TSidebarItem[] = [
 		{ title: "Dashboard", path: "dashboard" },
 		{ title: "Property", path: "property" },
@@ -16,7 +18,8 @@ const Sidebar = () => {
 	];
 
 	const handleSelect = (path: string) => {
-		setSelected(path);
+		setSelectedPath(path);
+    router.push(path);
 	};
 
 	return (
@@ -33,7 +36,7 @@ const Sidebar = () => {
 								key={index}
 								whileTap={{ scale: 0.9 }}
 								onClick={() => handleSelect(item.path)}
-                className={`${styles.menuItem} ${ item.path === selected ? styles.selected : "" }`}>
+                className={`${styles.menuItem} ${ item.path === selectedPath ? styles.selected : "" }`}>
 								{item.title}
 							</motion.span>
 						))}
