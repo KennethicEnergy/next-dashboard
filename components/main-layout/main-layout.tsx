@@ -20,7 +20,6 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   useEffect(() => {
     if (currentUser !== null) {
       setUserInfo(currentUser);
-
       if (role === '') {
         setShowRoleSelectorWindow(true);
       }
@@ -35,14 +34,12 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
   useEffect(() => {
     return () => {
-      setRole('');
       setSelectedRole('');
     }
   }, [])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedRole(e.target.value);
-
   };
 
   const handleProceed = () => {
