@@ -17,6 +17,17 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const [selectedRole, setSelectedRole] = useState('');
   const router = useRouter();
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedRole(e.target.value);
+  };
+
+  const handleProceed = () => {
+    if (selectedRole !== '') {
+      setShowRoleSelectorWindow(false);
+      router.push('/dashboard');
+    }
+  };
+
   useEffect(() => {
     if (currentUser !== null) {
       setUserInfo(currentUser);
@@ -30,24 +41,13 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     if(selectedRole) {
       setRole(selectedRole);
     }
-  }, [selectedRole])
+  }, [selectedRole]);
 
   useEffect(() => {
     return () => {
       setSelectedRole('');
     }
   }, [])
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedRole(e.target.value);
-  };
-
-  const handleProceed = () => {
-    if (selectedRole !== '') {
-      setShowRoleSelectorWindow(false);
-      router.push('/dashboard');
-    }
-  };
 
 
 
