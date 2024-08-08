@@ -1,15 +1,12 @@
 import { initializeApp } from "firebase/app";
 
 export const firebaseConfig = {
-  "projectId": "next-dashboard-190b6",
-  "appId": "1:682882394171:web:5493f0e9c67d438a52d41e",
-  "databaseURL": "https://next-dashboard-190b6-default-rtdb.asia-southeast1.firebasedatabase.app",
-  "storageBucket": "next-dashboard-190b6.appspot.com",
-  "locationId": "asia-east2",
-  "apiKey": "AIzaSyAUBZ41kLJaLSejScq8vUTNet34mk3I3WY",
-  "authDomain": "next-dashboard-190b6.firebaseapp.com",
-  "messagingSenderId": "682882394171",
-  "measurementId": "G-G0J6815LGM"
+  "projectId": "next-dashboard-9a5e5",
+  "appId": "1:985740703336:web:f96656fae610428f50addd",
+  "storageBucket": "next-dashboard-9a5e5.appspot.com",
+  "apiKey": "AIzaSyBHJB33SgeRgZBg_EfjSyjwOcu520Ul-SE",
+  "authDomain": "next-dashboard-9a5e5.firebaseapp.com",
+  "messagingSenderId": "985740703336"
 }
 
 export const firebaseApp = initializeApp(firebaseConfig);
