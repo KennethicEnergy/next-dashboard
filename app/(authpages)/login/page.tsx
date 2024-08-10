@@ -6,6 +6,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import GoogleLogo from "@/components/google-logo";
 import Spinner from "@/components/spinner";
 import { BiAccessibility } from "react-icons/bi";
+import useUserAccountStore from "@/store/accountStore";
 
 const LoginPage = () => {
 	const { currentUser } = getUserCS();
@@ -13,6 +14,7 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
+  const { setRole } = useUserAccountStore();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.type === "email") setEmail(e.target.value);
@@ -20,6 +22,10 @@ const LoginPage = () => {
 		setErrorMessage("");
 	}
 
+  useEffect(() => {
+    setRole('');
+  }, [])
+ 
 	return (
 		<div className="ppace-y-6 h-screen w-screen bg-white text-[#45A9EA] flex flex-col justify-center items-center transition-all p-2">
 			<div className="max-w-md flex flex-col shadow-lg border rounded-xl w-full bg-gray-100/40">

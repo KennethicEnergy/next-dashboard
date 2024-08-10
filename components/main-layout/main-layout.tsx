@@ -7,15 +7,19 @@ import BreadCrumbs from "../breadcrumbs/breadcrumbs";
 import useUserAccountStore from "@/store/accountStore";
 import { getUserCS } from "firebase-nextjs/client/auth";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { FirebaseNextJSContextType } from "@/services/types";
+import { firebaseApp } from "@/firebase-app-config";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const currentUser: FirebaseNextJSContextType = getUserCS();
   const { role, userInfo, setUserInfo, setRole} = useUserAccountStore();
   const [showRoleSelectorWindow, setShowRoleSelectorWindow] = useState(false);
   const [selectedRole, setSelectedRole] = useState('');
-  const router = useRouter();
+  
+  const db = getFirestore(firebaseApp);
+  const docRef = doc(db, "users", "8aRHo8rdoG7OlL0DraeR");
+  const [data, setData] = useState(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedRole(e.target.value);
@@ -24,7 +28,8 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const handleProceed = () => {
     if (selectedRole !== '') {
       setShowRoleSelectorWindow(false);
-      router.push('/dashboard');
+    } else {
+      setShowRoleSelectorWindow(true);
     }
   };
 
@@ -44,12 +49,16 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   }, [selectedRole]);
 
   useEffect(() => {
+    // getDoc(docRef).then((doc) => {
+    //   setData(doc.data()!.keyName);
+    // })
+    // console.log(data);
     return () => {
       setSelectedRole('');
     }
   }, [])
 
-
+  console.log(currentUser)
 
   const renderContent = () => {
     return showRoleSelectorWindow ?
