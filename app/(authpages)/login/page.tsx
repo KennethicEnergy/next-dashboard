@@ -25,7 +25,7 @@ const LoginPage = () => {
   useEffect(() => {
     setRole('');
   }, [])
- 
+
 	return (
 		<div className="ppace-y-6 h-screen w-screen bg-white text-[#45A9EA] flex flex-col justify-center items-center transition-all p-2">
 			<div className="max-w-md flex flex-col shadow-lg border rounded-xl w-full bg-gray-100/40">

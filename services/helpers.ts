@@ -1,174 +1,60 @@
-import { FirebaseCredentials, ProviderData, STSTokenManager } from '@/services/types';
-import { User } from 'firebase/auth'; // Replace with the correct import for the User type from Firebase
+import {
+	doc,
+	getDoc,
+	setDoc,
+	updateDoc,
+	getFirestore,
+	collection,
+	addDoc,
+	getDocs,
+	query,
+	where,
+} from "firebase/firestore";
+import { firebaseApp } from "@/firebase-app-config";
 
-export const transformToFirebaseCredentials = (currentUser: any | null): FirebaseCredentials => {
-  if (!currentUser) {
-    return {
-      userLoggedIn: false,
-      isEmailUser: false,
-      currentUser: {
-        providerId: '',
-        proactiveRefresh: {
-          user: {
-            uid: '',
-            email: '',
-            emailVerified: false,
-            isAnonymous: false,
-            providerData: [],
-            stsTokenManager: {
-              refreshToken: '',
-              accessToken: '',
-              expirationTime: 0,
-            },
-            createdAt: '',
-            lastLoginAt: '',
-            apiKey: '',
-            appName: '',
-          },
-          isRunning: false,
-          timerId: null,
-          errorBackoff: 0,
-        },
-        reloadUserInfo: {
-          localId: '',
-          email: '',
-          passwordHash: '',
-          emailVerified: false,
-          passwordUpdatedAt: 0,
-          providerUserInfo: [],
-          validSince: '',
-          lastLoginAt: '',
-          createdAt: '',
-          lastRefreshAt: '',
-        },
-        reloadListener: null,
-        uid: '',
-        auth: {
-          apiKey: '',
-          authDomain: '',
-          appName: '',
-          currentUser: {
-            uid: '',
-            email: '',
-            emailVerified: false,
-            isAnonymous: false,
-            providerData: [],
-            stsTokenManager: {
-              refreshToken: '',
-              accessToken: '',
-              expirationTime: 0,
-            },
-            createdAt: '',
-            lastLoginAt: '',
-            apiKey: '',
-            appName: '',
-          },
-        },
-        stsTokenManager: {
-          refreshToken: '',
-          accessToken: '',
-          expirationTime: 0,
-        },
-        accessToken: '',
-        displayName: null,
-        email: '',
-        emailVerified: false,
-        phoneNumber: null,
-        photoURL: null,
-        isAnonymous: false,
-        tenantId: null,
-        providerData: [],
-        metadata: {
-          createdAt: '',
-          lastLoginAt: '',
-        },
-      },
-    };
-  }
+const db = getFirestore(firebaseApp);
+const collectionRef = collection(db, "users");
 
-  // Extract token manager and metadata properly
-  const stsTokenManager: STSTokenManager = {
-    refreshToken: currentUser.refreshToken,
-    accessToken: '', // Retrieve this value if available
-    expirationTime: 0, // Set appropriately
-  };
+export const updateUserByDocumentId = async (documentId: string) => {
+	const userDocumentRef = doc(db, "users", documentId);
+	await updateDoc(userDocumentRef, {
+		field1: "newValue1",
+		field2: "newValue2",
+	});
+};
 
-  const providerData: ProviderData[] = currentUser.providerData.map((data:any) => ({
-    providerId: data.providerId,
-    uid: data.uid,
-    displayName: data.displayName || null,
-    email: data.email || '',
-    phoneNumber: data.phoneNumber || null,
-    photoURL: data.photoURL || null,
-  }));
+export const addUser = async () => {
+	const docRef = await addDoc(collectionRef, {
+		field1: "value1",
+		field2: "value2",
+		field3: "value3",
+	});
+	console.log("Document written with ID: ", docRef.id);
+};
 
-  return {
-    userLoggedIn: true,
-    isEmailUser: currentUser.email !== null,
-    currentUser: {
-      providerId: currentUser.providerId || '',
-      proactiveRefresh: {
-        user: {
-          uid: currentUser.uid,
-          email: currentUser.email || '',
-          emailVerified: currentUser.emailVerified,
-          isAnonymous: currentUser.isAnonymous,
-          providerData: providerData,
-          stsTokenManager: stsTokenManager,
-          createdAt: currentUser.metadata?.creationTime || '',
-          lastLoginAt: currentUser.metadata?.lastSignInTime || '',
-          apiKey: '', // Set appropriately
-          appName: '', // Set appropriately
-        },
-        isRunning: false,
-        timerId: null,
-        errorBackoff: 0,
-      },
-      reloadUserInfo: {
-        localId: '',
-        email: '',
-        passwordHash: '',
-        emailVerified: false,
-        passwordUpdatedAt: 0,
-        providerUserInfo: [],
-        validSince: '',
-        lastLoginAt: '',
-        createdAt: '',
-        lastRefreshAt: '',
-      },
-      reloadListener: null,
-      uid: currentUser.uid,
-      auth: {
-        apiKey: '',
-        authDomain: '',
-        appName: '',
-        currentUser: {
-          uid: currentUser.uid,
-          email: currentUser.email || '',
-          emailVerified: currentUser.emailVerified,
-          isAnonymous: currentUser.isAnonymous,
-          providerData: providerData,
-          stsTokenManager: stsTokenManager,
-          createdAt: currentUser.metadata?.creationTime || '',
-          lastLoginAt: currentUser.metadata?.lastSignInTime || '',
-          apiKey: '',
-          appName: '',
-        },
-      },
-      stsTokenManager: stsTokenManager,
-      accessToken: '', // Set appropriately
-      displayName: currentUser.displayName || null,
-      email: currentUser.email || '',
-      emailVerified: currentUser.emailVerified,
-      phoneNumber: currentUser.phoneNumber || null,
-      photoURL: currentUser.photoURL || null,
-      isAnonymous: currentUser.isAnonymous,
-      tenantId: currentUser.tenantId || null,
-      providerData: providerData,
-      metadata: {
-        createdAt: currentUser.metadata?.creationTime || '',
-        lastLoginAt: currentUser.metadata?.lastSignInTime || '',
-      },
-    },
-  };
+export const getAllUsers = async () => {
+	const querySnapshot = await getDocs(collectionRef);
+	querySnapshot.forEach((doc) => {
+		console.log(`${doc.id} => `, doc.data());
+	});
+};
+
+export const getUserById = async (documentId: string) => {
+	const userDocumentRef = doc(db, "users", documentId);
+	const docSnap = await getDoc(userDocumentRef);
+
+	if (docSnap.exists()) {
+		console.log("Document data:", docSnap.data());
+	} else {
+		console.log("No such document!");
+	}
+};
+
+export const getUserByQuery = async (field: string, operation: any, value: unknown) => { // The operation string (e.g "<", "<=", "==", "<", "<=", "!=").
+	const q = query(collectionRef, where(field, operation, value));
+	const querySnapshot = await getDocs(q);
+
+	querySnapshot.forEach((doc) => {
+		console.log(`${doc.id} => `, doc.data());
+	});
 };
