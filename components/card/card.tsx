@@ -2,9 +2,11 @@
 import React from 'react'
 import styles from './index.module.scss';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 type TProps = {
   body: string;
+  img?: string;
   title?: string;
   okText?: string | boolean;
   cancelText?: string | boolean;
@@ -12,13 +14,13 @@ type TProps = {
   cancelFunc?: () => void;
 }
 
-const Card = ({ title, body, okText, cancelText, okFunc, cancelFunc }: TProps) => {
+const Card = ({ title, img,  body, okText, cancelText, okFunc, cancelFunc }: TProps) => {
   return (
     <div className={styles.card}>
       {title && <h1 className={styles.cardTitle}>{title}</h1>}
       {title && <><hr /><br /></>}
+      {img && <Image src={img} alt={'image'} quality={100} priority width={500} height={100} />}
       <span>{body}</span>
-
       <div className={styles.controls} style={okText || cancelText ? {marginTop: '1rem'} : {}}>
         {okText && (
           <motion.button className={styles.okBtn} whileTap={{ scale: 0.9 }} type="button" onClick={okFunc}>
