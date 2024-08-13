@@ -8,16 +8,15 @@ import { useRouter } from "next/navigation";
 const Sidebar = () => {
   const [selectedPath, setSelectedPath] = useState("dashboard");
   const router = useRouter();
-  
+
   const sidebarItems: TSidebarItem[] = [
     { title: "Dashboard", path: "dashboard" },
     { title: "Property", path: "property" },
     { title: "Tenants", path: "tenants" },
-    { title: "Add Property", path: "add-property" },
     { title: "Maintainer", path: "maintainer" },
-    { title: "Contact", path: "contacts" },
+    { title: "Contact Us", path: "contacts" },
   ];
-  
+
   const [filteredSidebarItems, setFilteredSidebarItems] = useState(sidebarItems);
 
   const handleSelect = (path: string) => {
@@ -38,8 +37,17 @@ const Sidebar = () => {
           });
           setSelectedPath('property');
         }
+        if (userRole === "GUEST") {
+          filteredItems = sidebarItems.filter(item => {
+            return item.path === 'property' || item.path === 'contacts';
+          });
+          setSelectedPath('property');
+        }
         if (userRole === "SERVICEPRO") {
-          filteredItems = sidebarItems.filter(item => item.path !== 'contacts');
+          setSelectedPath('property');
+          filteredItems = sidebarItems.filter(item => {
+            return item.path === 'property' || item.path === 'contacts' || item.path === 'maintainer';
+          });
         }
         setFilteredSidebarItems(filteredItems);
       }
