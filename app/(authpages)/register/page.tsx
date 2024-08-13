@@ -30,19 +30,19 @@ const RegisterPage = () => {
                 <BiAccessibility />
                 Dash
               </h1>
-							<h2 className="text-sm text-gray-500 mb-8">
-								Sign up
+							<h2 className="text-sm text-[#45A9EA] mb-8">
+								Get ready to be fast!
 							</h2>
 							<input
 								type="email"
 								placeholder="Email"
-								className="w-full p-1.5 rounded-md mb-2 border text-sm focus:border-purple-400 focus:border-2 focus:outline-none"
+								className="w-full p-1.5 rounded-md mb-2 border text-sm focus:border-[#45A9EA] focus:border-2 focus:outline-none"
 								onChange={handleChange}
 							/>
 							<input
 								type="password"
 								placeholder="Password"
-								className="w-full p-1.5 rounded-md mb-2 border text-sm focus:border-purple-400 focus:border-2 focus:outline-none"
+								className="w-full p-1.5 rounded-md mb-2 border text-sm focus:border-[#45A9EA] focus:border-2 focus:outline-none"
 								onChange={handleChange}
 							/>
 							{errorMessage != "" && (
@@ -57,9 +57,9 @@ const RegisterPage = () => {
 								setLoading={setLoading}
 								className="w-full">
 								<button
-									className="w-full bg-gradient-to-b from-purple-500 to-purple-600 text-white rounded-lg p-2 text-sm shadow-md hover:shadow-lg transition-all disabled:to-purple-400 disabled:from-purple-400"
+									className="w-full bg-gradient-to-b bg-[#45A9EA] text-white rounded-lg p-2 text-sm shadow-md hover:shadow-lg transition-all disabled:to-purple-400 disabled:from-purple-400"
 									disabled={loading}>
-									Sign In
+									Sign Up
 								</button>
 							</EmailSignUpButton>
 							<div className="flex flex-row mt-10 w-full items-center mb-8">
@@ -70,7 +70,7 @@ const RegisterPage = () => {
 							<GoogleSignInButton className="w-full">
 								<button className="w-full bg-white text-gray-500 font-medium rounded-lg p-2 text-sm border shadow-sm hover:shadow-md transition-all flex flex-row items-center justify-center gap-2">
 									<GoogleLogo height={18} width={18} />
-									Sign in with Google
+									Sign up with Google
 								</button>
 							</GoogleSignInButton>
 						</>
@@ -81,7 +81,7 @@ const RegisterPage = () => {
         <div className="flex flex-row justify-center text-xs font-regular text-gray-500 my-2">
 					Existing user?
 					<Link
-						className="text-purple-500 ml-1 cursor-pointer font-medium"
+						className="text-[#45A9EA] ml-1 cursor-pointer font-medium"
 						href={"/login"}>
 						Sign in
 					</Link>
