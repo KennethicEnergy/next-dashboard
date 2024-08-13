@@ -1,21 +1,42 @@
 .card {
-  height: 200px;
-  width: 300px;
+  padding: 1rem;
   background: #ffffff;
   border-radius: 0.5rem;
-  margin: 20px;
+  margin: 1rem;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  height: fit-content;
+  max-width: 500px;
 
-  .cardHeader {
-    width: 280px;
-    height: 40px;
-    background: #FFC107;
-    transform: skewX(-20deg);
-    position: relative;
-    top: -16px;
-    left: 11px;
-    border-radius: 2px;
-
-    > * { transform: skewX(20deg); }
+  .cardTitle {
+    font-weight: bold;
+    padding: 0.5rem 0;
+    color: #1485cf;
   }
 
+  .cardBody {
+
+  }
+
+  .controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+
+    button {
+      border-radius: 0.5rem;
+      padding: 0.2rem 0.5rem;
+      min-width: 4rem;
+    }
+
+    .okBtn {
+      background: #1485cf;
+      color: #fff;
+    }
+
+    .cancelBtn {
+      background: #cf1414;
+      color: #fff;
+    }
+  }
 }

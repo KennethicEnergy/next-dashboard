@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GoogleLogo = ({ height = 24, width = 24, ...props }) => {
+const GoogleLogo = ({ height = 24, width = 24 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,0 +1,15 @@
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 100dvh;
+  width: 100dvw;
+  overflow-y: auto;
+
+  .container {
+    display: flex;
+    height: max-content;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}

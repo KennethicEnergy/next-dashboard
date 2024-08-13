@@ -21,6 +21,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   };
 
   const handleProceed = () => {
+    console.log('truggered')
     if (selectedRole !== '') {
       setShowRoleSelectorWindow(false);
     } else {
