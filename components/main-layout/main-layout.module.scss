@@ -10,15 +10,10 @@
   }
 }
 
-.options {
+.roleSelection {
+  height: 100dvh;
+  width: 100dvw;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.proceed {
-  background-color: #1485cf;
-  color: #ffffff;
-  border-radius: 5%;
-  padding: 0.2rem 1rem;
+  justify-content: center;
+  align-items: center;
 }

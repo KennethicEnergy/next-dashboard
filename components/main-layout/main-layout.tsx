@@ -8,6 +8,7 @@ import useUserAccountStore from "@/store/accountStore";
 import { getUserCS } from "firebase-nextjs/client/auth";
 import { motion } from "framer-motion";
 import { FirebaseNextJSContextType } from "@/services/types";
+import RoleSelection from "../role-selection/role-selection";
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const currentUser: FirebaseNextJSContextType = getUserCS();
@@ -15,8 +16,8 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const [showRoleSelectorWindow, setShowRoleSelectorWindow] = useState(false);
   const [selectedRole, setSelectedRole] = useState('');
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedRole(e.target.value);
+  const handleChange = (value: string) => {
+    setSelectedRole(value);
   };
 
   const handleProceed = () => {
@@ -46,20 +47,13 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return () => {
       setSelectedRole('');
     }
-  }, [])
+  }, []);
 
   const renderContent = () => {
     return showRoleSelectorWindow ?
-      <div>
-        What is your role?
-        <div className={styles.options}>
-          <span><input type="checkbox" value="TENANT" onChange={handleChange} /> Tenant</span>
-          <span><input type="checkbox" value="LANDLORD" onChange={handleChange} /> Landlord</span>
-          <span><input type="checkbox" value="SERVICEPRO" onChange={handleChange} /> Service Provider</span>
-        </div>
-        <motion.button whileTap={{ scale: 0.9 }} className={styles.proceed} onClick={handleProceed}>Proceed</motion.button>
-      </div>
-      :
+      <div className={styles.roleSelection}>
+        <RoleSelection handleChange={handleChange} handleProceed={handleProceed}/>
+      </div> :
       <div className={styles.main}>
         <Sidebar />
         <div className={styles.contents}>
