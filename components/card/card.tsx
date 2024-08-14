@@ -10,13 +10,14 @@ type TProps = {
   title?: string;
   okText?: string | boolean;
   cancelText?: string | boolean;
-  okFunc?: () => void;
-  cancelFunc?: () => void;
+  okFunc?: (data?: any) => void;
+  cancelFunc?: (data?: any) => void;
+  cardOpenFunc?: (data?: any) => void;
 }
 
-const Card = ({ title, img,  body, okText, cancelText, okFunc, cancelFunc }: TProps) => {
+const Card = ({ title, img, body, okText, cancelText, okFunc, cancelFunc, cardOpenFunc }: TProps) => {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={cardOpenFunc} data-click-open={cardOpenFunc ? "1" : "0"}>
       {title && <h1 className={styles.cardTitle}>{title}</h1>}
       {title && <><hr /><br /></>}
       {img && <><Image src={img} alt={'image'} quality={100} priority width={500} height={100} /><br/></>}

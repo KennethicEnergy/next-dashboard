@@ -1,40 +1,47 @@
 .card {
-  padding: 1rem;
-  background: #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-  height: fit-content;
+	padding: 1rem;
+	background: #ffffff;
+	border-radius: 0.5rem;
+	box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+	height: fit-content;
+	min-width: 4rem;
 
-  .cardTitle {
-    font-weight: bold;
-    padding: 0.5rem 0;
-    color: #1485cf;
-  }
+	&:hover {
+		&[data-click-open="1"] {
+			opacity: 0.5;
+			cursor: pointer;
+		}
+	}
 
-  .cardBody {
+	.cardTitle {
+		font-weight: bold;
+		padding: 0.5rem 0;
+		color: #1485cf;
+	}
 
-  }
+	.cardBody {
+	}
 
-  .controls {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5rem;
+	.controls {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 0.5rem;
 
-    button {
-      border-radius: 0.5rem;
-      padding: 0.2rem 0.5rem;
-      min-width: 4rem;
-    }
+		button {
+			border-radius: 0.5rem;
+			padding: 0.2rem 0.5rem;
+			min-width: 4rem;
+		}
 
-    .okBtn {
-      background: #1485cf;
-      color: #fff;
-    }
+		.okBtn {
+			background: #1485cf;
+			color: #fff;
+		}
 
-    .cancelBtn {
-      background: #cf1414;
-      color: #fff;
-    }
-  }
+		.cancelBtn {
+			background: #cf1414;
+			color: #fff;
+		}
+	}
 }
