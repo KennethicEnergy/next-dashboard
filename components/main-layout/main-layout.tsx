@@ -1,12 +1,11 @@
 "use client";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/sidebar/sidebar";
 import Header from "@/components/header/header";
 import styles from './main-layout.module.scss';
 import BreadCrumbs from "../breadcrumbs/breadcrumbs";
 import useUserAccountStore from "@/store/accountStore";
 import { getUserCS } from "firebase-nextjs/client/auth";
-import { motion } from "framer-motion";
 import { FirebaseNextJSContextType } from "@/services/types";
 import RoleSelection from "../role-selection/role-selection";
 
@@ -59,7 +58,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <div className={styles.contents}>
           <Header />
           <BreadCrumbs />
-          <div className={styles.content}>{children}</div>
+          {children}
         </div>
       </div>
   };
