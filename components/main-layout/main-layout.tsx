@@ -21,7 +21,6 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   };
 
   const handleProceed = () => {
-    console.log('truggered')
     if (selectedRole !== '') {
       setShowRoleSelectorWindow(false);
     } else {
@@ -60,7 +59,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <div className={styles.contents}>
           <Header />
           <BreadCrumbs />
-          {children}
+          <div className={styles.content}>{children}</div>
         </div>
       </div>
   };

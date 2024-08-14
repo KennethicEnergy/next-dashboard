@@ -19,7 +19,7 @@ const Card = ({ title, img,  body, okText, cancelText, okFunc, cancelFunc }: TPr
     <div className={styles.card}>
       {title && <h1 className={styles.cardTitle}>{title}</h1>}
       {title && <><hr /><br /></>}
-      {img && <Image src={img} alt={'image'} quality={100} priority width={500} height={100} />}
+      {img && <><Image src={img} alt={'image'} quality={100} priority width={500} height={100} /><br/></>}
       <span>{body}</span>
       <div className={styles.controls} style={okText || cancelText ? {marginTop: '1rem'} : {}}>
         {okText && (

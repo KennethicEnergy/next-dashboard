@@ -49,6 +49,9 @@ const Sidebar = () => {
             return item.path === 'property' || item.path === 'contacts' || item.path === 'maintainer';
           });
         }
+        if (userRole === "LANDLORD") {
+          setSelectedPath('dashboard');
+        }
         setFilteredSidebarItems(filteredItems);
       }
     } catch (error) {
