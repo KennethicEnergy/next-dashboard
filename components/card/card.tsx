@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-type TProps = {
+type TCardProps = {
   body: string;
   img?: string;
   title?: string;
@@ -15,12 +15,12 @@ type TProps = {
   cardOpenFunc?: (data?: any) => void;
 }
 
-const Card = ({ title, img, body, okText, cancelText, okFunc, cancelFunc, cardOpenFunc }: TProps) => {
+const Card = ({ title, img, body, okText, cancelText, okFunc, cancelFunc, cardOpenFunc }: TCardProps) => {
   return (
     <div className={styles.card} onClick={cardOpenFunc} data-click-open={cardOpenFunc ? "1" : "0"}>
       {title && <h1 className={styles.cardTitle}>{title}</h1>}
       {title && <><hr /><br /></>}
-      {img && <><Image src={img} alt={'image'} quality={100} priority width={500} height={100} /><br/></>}
+      {img && <><Image className={styles.img} src={img} alt={'image'} quality={100} priority width={500} height={100} /><br/></>}
       <span>{body}</span>
       <div className={styles.controls} style={okText || cancelText ? {marginTop: '1rem'} : {}}>
         {okText && (
