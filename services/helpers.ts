@@ -11,6 +11,7 @@ import {
 	where,
 } from "firebase/firestore";
 import { firebaseApp } from "@/firebase-app-config";
+import { FirebaseNextJSContextType } from "./types";
 
 const db = getFirestore(firebaseApp);
 const collectionRef = collection(db, "users");
@@ -23,12 +24,8 @@ export const updateUserByDocumentId = async (documentId: string) => {
 	});
 };
 
-export const addUser = async () => {
-	const docRef = await addDoc(collectionRef, {
-		field1: "value1",
-		field2: "value2",
-		field3: "value3",
-	});
+export const addUser = async (role: string, user: FirebaseNextJSContextType) => {
+	const docRef = await addDoc(collectionRef, { role, email: user.currentUser?.email });
 	console.log("Document written with ID: ", docRef.id);
 };
 
@@ -42,7 +39,6 @@ export const getAllUsers = async () => {
 export const getUserById = async (documentId: string) => {
 	const userDocumentRef = doc(db, "users", documentId);
 	const docSnap = await getDoc(userDocumentRef);
-
 	if (docSnap.exists()) {
 		console.log("Document data:", docSnap.data());
 	} else {
@@ -54,7 +50,11 @@ export const getUserByQuery = async (field: string, operation: any, value: unkno
 	const q = query(collectionRef, where(field, operation, value));
 	const querySnapshot = await getDocs(q);
 
+	const results: any[] = [];  // Create an array to store the results
+
 	querySnapshot.forEach((doc) => {
-		console.log(`${doc.id} => `, doc.data());
+		results.push({ id: doc.id, ...doc.data() });  // Store the document data in the array
 	});
+
+	return results;  // Return the results array
 };
