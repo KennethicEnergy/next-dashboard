@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './role-selection.module.scss';
 import { motion } from 'framer-motion';
 import { roles } from '@/services/constants';
@@ -16,6 +16,10 @@ const RoleSelection = ({ handleChange, handleProceed }: TProps) => {
     handleChange(role);
     setSelectedRole(role);
   };
+
+  useEffect(() => {
+		setTimeout(() => setSelectedRole("TENANT"), 500);
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -40,7 +44,7 @@ const RoleSelection = ({ handleChange, handleProceed }: TProps) => {
         ))}
       </div>
       <span>
-        or proceed as Guest
+        or continue as Guest
         <input
           type="checkbox"
           checked={selectedRole === 'GUEST'}

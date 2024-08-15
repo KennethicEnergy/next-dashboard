@@ -6,58 +6,64 @@ import { TSidebarItem } from "@/services/types";
 import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
-  const [selectedPath, setSelectedPath] = useState("dashboard");
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
+  const [filteredSidebarItems, setFilteredSidebarItems] = useState<TSidebarItem[]>([]);
   const router = useRouter();
 
   const sidebarItems: TSidebarItem[] = [
-    { title: "Dashboard", path: "dashboard" },
-    { title: "Property", path: "property" },
-    { title: "Tenants", path: "tenants" },
-    { title: "Maintainer", path: "maintainer" },
-    { title: "Contact Us", path: "contacts" },
+    { title: "Dashboard", path: "dashboard", roles: ["LANDLORD"] },
+    { title: "Property", path: "property", roles: ["LANDLORD", "TENANT", "GUEST", "SERVICEPRO"] },
+    { title: "Tenants", path: "tenants", roles: ["LANDLORD"] },
+    { title: "Maintainer", path: "maintainer", roles: ["LANDLORD", "SERVICEPRO"] },
+    { title: "Contact Us", path: "contacts", roles: ["LANDLORD", "TENANT", "GUEST", "SERVICEPRO"] },
   ];
 
-  const [filteredSidebarItems, setFilteredSidebarItems] = useState(sidebarItems);
+  const getUserRole = (): string | null => {
+    try {
+      const userLocalData = JSON.parse(localStorage.getItem("user-store") || "{}");
+      return userLocalData?.state?.role || null;
+    } catch (error) {
+      console.error("Failed to parse user data from localStorage:", error);
+      return null;
+    }
+  };
+
+  const filterSidebarItems = (role: string): TSidebarItem[] => {
+    switch (role) {
+      case "TENANT":
+      case "GUEST":
+        return sidebarItems.filter(item => ["property", "contacts"].includes(item.path));
+
+      case "SERVICEPRO":
+        return sidebarItems.filter(item => ["property", "contacts", "maintainer"].includes(item.path));
+
+      case "LANDLORD":
+      default:
+        return sidebarItems;
+    }
+  };
+
+  useEffect(() => {
+    const userRole = getUserRole();
+    if (userRole) {
+      const filteredItems = filterSidebarItems(userRole);
+      setFilteredSidebarItems(filteredItems);
+      if (!selectedPath) {
+        const defaultPath = filteredItems[0]?.path || "dashboard";
+        setSelectedPath(defaultPath);
+        router.push(defaultPath);
+      }
+    }
+  }, [selectedPath]);
+
+  useEffect(() => {
+
+  }, [])
 
   const handleSelect = (path: string) => {
     setSelectedPath(path);
     router.push(path);
   };
-
-  useEffect(() => {
-    try {
-      const userLocalData = JSON.parse(localStorage.getItem('user-store') || '{}');
-      const userRole = userLocalData?.state?.role;
-
-      if (userRole) {
-        let filteredItems = sidebarItems;
-        if (userRole === "TENANT") {
-          filteredItems = sidebarItems.filter(item => {
-            return item.path === 'property' || item.path === 'contacts';
-          });
-          setSelectedPath('property');
-        }
-        if (userRole === "GUEST") {
-          filteredItems = sidebarItems.filter(item => {
-            return item.path === 'property' || item.path === 'contacts';
-          });
-          setSelectedPath('property');
-        }
-        if (userRole === "SERVICEPRO") {
-          setSelectedPath('property');
-          filteredItems = sidebarItems.filter(item => {
-            return item.path === 'property' || item.path === 'contacts' || item.path === 'maintainer';
-          });
-        }
-        if (userRole === "LANDLORD") {
-          setSelectedPath('dashboard');
-        }
-        setFilteredSidebarItems(filteredItems);
-      }
-    } catch (error) {
-      console.error("Failed to parse user data from localStorage:", error);
-    }
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -73,7 +79,8 @@ const Sidebar = () => {
                 key={index}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => handleSelect(item.path)}
-                className={`${styles.menuItem} ${ item.path === selectedPath ? styles.selected : "" }`}>
+                className={`${styles.menuItem} ${item.path === selectedPath ? styles.selected : ""}`}
+              >
                 {item.title}
               </motion.span>
             ))}
