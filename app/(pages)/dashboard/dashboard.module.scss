@@ -5,8 +5,16 @@
   flex-wrap: wrap;
   overflow: auto;
   gap: 1.5%;
+  padding: 1rem;
+  align-content: flex-start;
 }
 
 .dashboard > * {
-  flex: 0 1 32.1%;
+  flex: 0 1 32.3%;
+}
+
+@media screen and (max-width: 600px) {
+  .dashboard > * {
+    flex: 1 1 100%;
+  }
 }
