@@ -9,6 +9,7 @@ import { getUserCS } from "firebase-nextjs/client/auth";
 import { FirebaseNextJSContextType } from "@/services/types";
 import RoleSelection from "../role-selection/role-selection";
 import { useRouter } from "next/navigation";
+import { addUser, getUserByQuery } from "@/services/helpers";
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	const currentUser: FirebaseNextJSContextType = getUserCS();
@@ -23,30 +24,31 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
 	const handleProceed = () => {
 		if (selectedRole !== "") {
+      setRole(selectedRole);
 			setShowRoleSelectorWindow(false);
-		} else {
-			setShowRoleSelectorWindow(true);
 		}
 	};
 
 	useEffect(() => {
-		if (currentUser !== null) {
+    const checkIfEmailIsRegistered = async () => {
+      const data = await getUserByQuery('email', '==', currentUser.currentUser?.email);
+      console.log(data);
+      if (data.length > 0) {
+        setRole(data[0].role);
+        setShowRoleSelectorWindow(false);
+      } else {
+        addUser(selectedRole, currentUser);
+      }
+    }
+    checkIfEmailIsRegistered();
+
+    if (currentUser !== null) {
 			setUserInfo(currentUser);
 			if (role === "") {
 				setShowRoleSelectorWindow(true);
 			}
 		}
-	}, [currentUser]);
 
-	useEffect(() => {
-		if (selectedRole) {
-			setRole(selectedRole);
-		} else {
-			router.push("/");
-		}
-	}, [selectedRole]);
-
-	useEffect(() => {
 		return () => {
 			setSelectedRole("");
 		};

@@ -56,10 +56,6 @@ const Sidebar = () => {
     }
   }, [selectedPath]);
 
-  useEffect(() => {
-
-  }, [])
-
   const handleSelect = (path: string) => {
     setSelectedPath(path);
     router.push(path);
